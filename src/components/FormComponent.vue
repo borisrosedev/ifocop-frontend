@@ -55,27 +55,17 @@ async function submitHandler () {
         // you stop the program
         return
     }
-    const result = await fetch('users.json')
-    const users = await result.json()
+    const result = await fetch('http://localhost:3000/api/v1/user/login', {
+        method: 'POST',
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify({ email: email.value, password: password.value })
+    })
+    const jsResponse = await result.json()
+    console.log(jsResponse)
 
-    const doesUserExist = (user:any) => user.email === email.value
-
-    const user = users.find(doesUserExist)
-    // I am trying the find a user within 
-    // the users db who has as email 
-    // the value the current user has put
-
-    if(!user){
-        alert('User does not exist')
-        return
-    }
-
-    if(!(user.password == password.value)){
-        alert('Wrong password')
-        return
-    }
-    
-    alert('Connexion réussie')
+  
 
 }
 
